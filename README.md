@@ -1,12 +1,12 @@
 # vector_library
 Vector implementation in C
 
-
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
 
 vector.h is a vector library that supports vectors of different types.
 
------------------------------------------------------------------------------
 SCALING FACTOR:
 The default scaling factor for which the maximum size of a vector grows is 
 currently set to 2. To change the scaling factor, either change the value 
@@ -71,17 +71,18 @@ alternatively you can write:
 vector(type_t) x;
 x = new_vector(type_t);
 ```
-
+-----------------------------------------------------------------------------
 ```
 vector(type_t) x; 
 ```
 declares a pointer x of type vector(type_t) that holds a
                   resizeable array of type_ts.
+-----------------------------------------------------------------------------
 ```
 x = new_vector(type_t); 
 ```
 Allocates memory to x and sets all of x's methods.
-
+-----------------------------------------------------------------------------
 Example:
 ```
 #include <stdio.h>
