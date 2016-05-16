@@ -1,5 +1,3 @@
-# vector_library
-Vector implementation in C
 
 vector.h is a vector library that supports vectors of different types.
 
