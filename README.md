@@ -1,6 +1,9 @@
 # vector_library
 Vector implementation in C
 
+
+
+
 vector.h is a vector library that supports vectors of different types.
 
 -----------------------------------------------------------------------------
@@ -8,31 +11,33 @@ SCALING FACTOR:
 The default scaling factor for which the maximum size of a vector grows is 
 currently set to 2. To change the scaling factor, either change the value 
 for SCALING in vector.h or include the following lines in your code:
-
+'''
 #undef SCALING
 #define SCALING 2
+'''
 -----------------------------------------------------------------------------
 INITIAL SIZE:
 When a vector is declared and initialized, the maximum size of the vector is 
 set to 4. To change this initial size, either change the value for INITIAL in
 vector.h or include the following lines in your code:
-
+'''
 #undef INITIAL
 #define INITIAL 4
+'''
 -----------------------------------------------------------------------------
 INITIALIZING VECTOR TYPES:
 
 To Initialize vectors of a certain type in your code, add the following line
 after your preprocessor statements:
 
-
+'''
 initial_vector(type_t);
-
+'''
 
 type_t is the type of vector for which you plan to use in your code:
 
 Example:
-
+'''
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
@@ -44,7 +49,7 @@ int main(void)
     /* Code goes here */
     return 0;
 }
-
+'''
 note: If you define your own type as usual with structs/enums/unions, 
 you must define the type before you initialize the vector of that type.
 -----------------------------------------------------------------------------
@@ -54,27 +59,31 @@ After you initialize the desired vector type, you can
 create a vector in the following way:
 
 
-
+'''
 vector(type_t) x = new_vector(type_t); 
-
+'''
 
 
 alternatively you can write:
 
 
-
+'''
 vector(type_t) x;
 x = new_vector(type_t);
+'''
 
-
-
-vector(type_t) x; declares a pointer x of type vector(type_t) that holds a
+'''
+vector(type_t) x; 
+'''
+declares a pointer x of type vector(type_t) that holds a
                   resizeable array of type_ts.
-
-x = new_vector(type_t); Allocates memory to x and sets all of x's methods.
+'''
+x = new_vector(type_t); 
+'''
+Allocates memory to x and sets all of x's methods.
 
 Example:
-
+'''
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
@@ -87,19 +96,20 @@ int main(void)
     /* Do stuff */
     return 0;
 }
+'''
 -----------------------------------------------------------------------------
 FREEING A VECTOR:
 
 Once you are done with the vector that you created, you can free it in the
 following way:
-
+'''
 free_vector(type_t, x);
-
+'''
 type_t is the element type within the vector and x is the pointer to the
 vector itself. An example would look like the following:
 
 Example:
-
+'''
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
@@ -113,6 +123,7 @@ int main(void)
     free_vector(int, x);
     return 0;
 }
+'''
 -----------------------------------------------------------------------------
 CALLING METHODS:
 
@@ -148,7 +159,7 @@ max_size: gives the max size the vector can be before memory reallocation
     return: size_t
 
 Example of method calls:
-
+'''
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
@@ -179,7 +190,7 @@ int main(void)
     free_vector(int, y);
     return 0;
 }
-
+'''
 
 
 
