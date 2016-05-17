@@ -11,19 +11,19 @@
 #define INITIAL 1
 
 /* Macro to make vector declaration more intuitive */
-#define vector(type_t) vector_ ## type_t *
+#define vector(identifier) vector_ ## identifier *
 
 /* Macro to make initialization more intuitive */
-#define new_vector(type_t) new_vector ## type_t ()
+#define new_vector(identifier) new_vector ## identifier()
 
 /* Macro to free a vector */
 #define free_vector(vector) do {free(vector->data); free(vector);} while (0)
 
 /* MACRO THAT DEFINES VECTOR AND CORRESPONDING FUNCTIONS */
-#define initial_vector(type_t)                                               \
+#define initial_vector(type_t, identifier)                                   \
                                                                              \
 /* STRUCTURE DEFINING VECTOR */                                              \
-typedef struct _vector_ ## type_t                                            \
+typedef struct _vector_ ## identifier                                        \
 {                                                                            \
     /* Array holding data */                                                 \
     type_t *data;                                                            \
@@ -33,34 +33,36 @@ typedef struct _vector_ ## type_t                                            \
     size_t maxi_size;                                                        \
                                                                              \
     /* Methods */                                                            \
-    void (*append)(struct _vector_ ## type_t *self, type_t x);               \
-    void (*extend)(struct _vector_ ## type_t *self,                          \
-        struct _vector_ ## type_t * input);                                  \
-    void (*set)(struct _vector_ ## type_t *self, int index, type_t x);       \
-    type_t (*get)(struct _vector_ ## type_t *self, int index);               \
-    type_t (*pop)(struct _vector_ ## type_t *self);                          \
-    size_t (*size)(struct _vector_ ## type_t *self);                         \
-    size_t (*max_size)(struct _vector_ ## type_t *self);                     \
+    void (*append)(struct _vector_ ## identifier *self, type_t x);           \
+    void (*extend)(struct _vector_ ## identifier *self,                      \
+        struct _vector_ ## identifier * input);                              \
+    void (*set)(struct _vector_ ## identifier *self, int index, type_t x);   \
+    type_t (*get)(struct _vector_ ## identifier *self, int index);           \
+    type_t (*pop)(struct _vector_ ## identifier *self);                      \
+    size_t (*size)(struct _vector_ ## identifier *self);                     \
+    size_t (*max_size)(struct _vector_ ## identifier *self);                 \
                                                                              \
-} vector_ ## type_t ;                                                        \
+} vector_ ## identifier ;                                                    \
                                                                              \
 /* FUNCTION PROTOTYPES */                                                    \
-vector_ ## type_t *new_vector ## type_t ();                                  \
+vector_ ## identifier *new_vector ## identifier();                           \
                                                                              \
-void append_ ## type_t (vector_ ## type_t *self, type_t x);                  \
-void extend_ ## type_t (vector_ ## type_t *self, vector_ ## type_t * input); \
-void set_ ## type_t (vector_ ## type_t *self, int index, type_t x);          \
-type_t get_ ## type_t (vector_ ## type_t *self, int index);                  \
-type_t pop_ ## type_t (vector_ ## type_t *self);                             \
-size_t size_ ## type_t (vector_ ## type_t *self);                            \
-size_t max_size_ ## type_t (vector_ ## type_t *self);                        \
+void append_ ## identifier(vector_ ## identifier *self, type_t x);           \
+void extend_ ## identifier(vector_ ## identifier *self,                      \
+    vector_ ## identifier * input);                                          \
+void set_ ## identifier(vector_ ## identifier *self, int index, type_t x);   \
+type_t get_ ## identifier(vector_ ## identifier *self, int index);           \
+type_t pop_ ## identifier(vector_ ## identifier *self);                      \
+size_t size_ ## identifier(vector_ ## identifier *self);                     \
+size_t max_size_ ## identifier(vector_ ## identifier *self);                 \
                                                                              \
 /* INITIALIZE VECTOR */                                                      \
-vector_ ## type_t *new_vector ## type_t ()                                   \
+vector_ ## identifier *new_vector ## identifier()                            \
 {                                                                            \
     /* Allocate memory */                                                    \
-    vector_ ## type_t *result;                                               \
-    result = (vector_ ## type_t *)malloc(sizeof(vector_ ## type_t));         \
+    vector_ ## identifier *result;                                           \
+    result = (vector_ ## identifier *)                                       \
+        malloc(sizeof(vector_ ## identifier));                               \
     if (result == NULL)                                                      \
     {                                                                        \
         fprintf(stderr, "Memory allocation failure!\n");                     \
@@ -76,13 +78,13 @@ vector_ ## type_t *new_vector ## type_t ()                                   \
     result->maxi_size = INITIAL;                                             \
                                                                              \
     /* Setting appropriate function pointers to work as methods */           \
-    result->append =     &append_ ## type_t;                                 \
-    result->extend =     &extend_ ## type_t;                                 \
-    result->set =           &set_ ## type_t;                                 \
-    result->get =           &get_ ## type_t;                                 \
-    result->pop =           &pop_ ## type_t;                                 \
-    result->size =         &size_ ## type_t;                                 \
-    result->max_size = &max_size_ ## type_t;                                 \
+    result->append =     &append_ ## identifier;                             \
+    result->extend =     &extend_ ## identifier;                             \
+    result->set =           &set_ ## identifier;                             \
+    result->get =           &get_ ## identifier;                             \
+    result->pop =           &pop_ ## identifier;                             \
+    result->size =         &size_ ## identifier;                             \
+    result->max_size = &max_size_ ## identifier;                             \
                                                                              \
     /* return pointer to memory type */                                      \
     return result;                                                           \
@@ -91,7 +93,7 @@ vector_ ## type_t *new_vector ## type_t ()                                   \
 /* METHODS */                                                                \
                                                                              \
 /* Appends value to Vector */                                                \
-void append_ ## type_t (vector_ ## type_t *self, type_t x)                   \
+void append_ ## identifier(vector_ ## identifier *self, type_t x)            \
 {                                                                            \
     if (self->curr_size == self->maxi_size)                                  \
     {                                                                        \
@@ -110,7 +112,8 @@ void append_ ## type_t (vector_ ## type_t *self, type_t x)                   \
 }                                                                            \
                                                                              \
 /* Extends a vector with the values of a given vector of the same type */    \
-void extend_ ## type_t (vector_ ## type_t *self, vector_ ## type_t * input)  \
+void extend_ ## identifier(vector_ ## identifier *self,                      \
+    vector_ ## identifier * input)                                           \
 {                                                                            \
     int i;                                                                   \
     while ((self->maxi_size - self->curr_size) < input->curr_size)           \
@@ -133,7 +136,7 @@ void extend_ ## type_t (vector_ ## type_t *self, vector_ ## type_t * input)  \
 }                                                                            \
                                                                              \
 /* Sets value at index to new value */                                       \
-void set_ ## type_t (vector_ ## type_t *self, int index, type_t x)           \
+void set_ ## identifier(vector_ ## identifier *self, int index, type_t x)    \
 {                                                                            \
     if(index >= self->curr_size || index < 0)                                \
     {                                                                        \
@@ -144,7 +147,7 @@ void set_ ## type_t (vector_ ## type_t *self, int index, type_t x)           \
 }                                                                            \
                                                                              \
 /* Gets value at given index */                                              \
-type_t get_ ## type_t (vector_ ## type_t *self, int index)                   \
+type_t get_ ## identifier(vector_ ## identifier *self, int index)            \
 {                                                                            \
     if(index >= self->curr_size || index < 0)                                \
     {                                                                        \
@@ -155,7 +158,7 @@ type_t get_ ## type_t (vector_ ## type_t *self, int index)                   \
 }                                                                            \
                                                                              \
 /* Pops vector */                                                            \
-type_t pop_ ## type_t (vector_ ## type_t *self)                              \
+type_t pop_ ## identifier(vector_ ## identifier *self)                       \
 {                                                                            \
     if (self->curr_size == 0)                                                \
     {                                                                        \
@@ -167,13 +170,13 @@ type_t pop_ ## type_t (vector_ ## type_t *self)                              \
 }                                                                            \
                                                                              \
 /* Returns current size of vector */                                         \
-size_t size_ ## type_t (vector_ ## type_t *self)                             \
+size_t size_ ## identifier(vector_ ## identifier *self)                      \
 {                                                                            \
     return self->curr_size;                                                  \
 }                                                                            \
                                                                              \
 /* Returns maximum size before needing to resize */                          \
-size_t max_size_ ## type_t (vector_ ## type_t *self)                         \
+size_t max_size_ ## identifier(vector_ ## identifier *self)                  \
 {                                                                            \
     return self->maxi_size;                                                  \
 }                                                                            

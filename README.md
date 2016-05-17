@@ -29,10 +29,12 @@ To Initialize vectors of a certain type in your code, add the following line
 after your preprocessor statements:
 
 ```
-initial_vector(type_t);
+initial_vector(type_t, id);
 ```
 
 type_t is the type of vector for which you plan to use in your code.
+
+id is the unique identifier for which you plan to identify your vector type.
 
 Example:
 
@@ -41,7 +43,7 @@ Example:
 #include <stdlib.h>
 #include "vector.h"
 
-initial_vector(int);
+initial_vector(int, integer);
 
 int main(void)
 { 
@@ -52,7 +54,6 @@ int main(void)
 
 note: If you define your own type as usual with structs/enums/unions 
 you must define the type before you initialize the vector of that type.
-
 -----------------------------------------------------------------------------
 CREATING A VECTOR:
 
@@ -61,7 +62,7 @@ create a vector in the following way:
 
 
 ```
-vector(type_t) x = new_vector(type_t); 
+vector(id) x = new_vector(id); 
 ```
 
 
@@ -69,20 +70,19 @@ alternatively you can write:
 
 
 ```
-vector(type_t) x;
-x = new_vector(type_t);
+vector_id *x = new_vector(type_t);
 ```
 
 -----------------------------------------------------------------------------
 
 ```
-vector(type_t) x; 
+vector(id) x; 
 ```
 
-declares a pointer x of type vector(type_t) that holds a resizeable array of type_ts.
+declares a pointer x of type vector(id) that holds a resizeable array of type_ts.
 
 ```
-x = new_vector(type_t); 
+x = new_vector(id); 
 ```
 
 Allocates memory to x and sets all of x's methods.
@@ -94,12 +94,14 @@ Example:
 #include <stdlib.h>
 #include "vector.h"
 
-initial_vector(int);
+initial_vector(int, integer);
 
 int main(void)
 { 
-    vector(int) x = new_vector(int);
+    vector(integer) x = new_vector(integer);
+
     /* Do stuff */
+
     return 0;
 }
 ```
@@ -120,12 +122,14 @@ Example:
 #include <stdlib.h>
 #include "vector.h"
 
-initial_vector(int);
+initial_vector(int, integer);
 
 int main(void)
 { 
-    vector(int) x = new_vector(int);
+    vector(integer) x = new_vector(integer);
+
     /* Do stuff */
+
     free_vector(x);
     return 0;
 }
@@ -173,30 +177,38 @@ Example of method calls:
 #include <stdlib.h>
 #include "vector.h"
 
-initial_vector(int);
+initial_vector(int, integer);
+initial_vector(float, fl)
 
 int main(void)
 { 
     int i;
     
-    vector(int) x = new_vector(int);
-    vector(int) y = new_vector(int);
+    vector(integer) x = new_vector(integer);
+    vector(integer) y = new_vector(integer);
+    vector(fl) z = new_vector(fl);
 
     for(i = 0; i < 314; i++)
     {
         x->append(x, i);
+        y->append(z, float(i));
     }
 
     y->extend(y,x);
 
     for(i = 0; i < y->size(y); i++)
+    {
         printf("%d\n", y->get(y, i));
+        printf("%f\n", z->get(y, i));
+    }
+
 
     printf("curr_size: %zu\n", y->size(y));
     printf("maxi_size: %zu\n", y->max_size(y));
 
     free_vector(x);
     free_vector(y);
+
     return 0;
 }
 ```
