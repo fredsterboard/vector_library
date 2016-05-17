@@ -8,7 +8,7 @@
 #define SCALING 2
 
 /* Initial size of newly created vector */
-#define INITIAL 1
+#define INITIAL 4
 
 /* Macro to make vector declaration more intuitive */
 #define vector(identifier) vector_ ## identifier *
