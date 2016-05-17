@@ -4,6 +4,11 @@ Vector implementation in C
 -----------------------------------------------------------------------------
 vector.h is a vector library that supports vectors of different types.
 
+From initial testing, it seems that this library outperforms std::vector.
+However, further benchmark tests are warranted to compare performance.
+
+Either way, here's an explanation of how to use the library as currently
+implemented.
 -----------------------------------------------------------------------------
 SCALING FACTOR:
 The default scaling factor for which the maximum size of a vector grows is 
@@ -53,7 +58,29 @@ int main(void)
 ```
 
 note: If you define your own type as usual with structs/enums/unions 
-you must define the type before you initialize the vector of that type.
+you must define the type before you initialize the 
+vector of that type as such:
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "vector.h"
+
+typedef struct _node
+{
+    int value;
+    struct _node * next;
+} node;
+
+initial_vector(node *, node_p);
+
+int main(void)
+{ 
+    /* Code goes here */
+    return 0;
+}
+```
+
 -----------------------------------------------------------------------------
 CREATING A VECTOR:
 
