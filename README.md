@@ -110,11 +110,8 @@ Once you are done with the vector that you created, you can free it in the
 following way:
 
 ```
-free_vector(type_t, x);
+free_vector(x);
 ```
-
-type_t is the element type within the vector and x is the pointer to the
-vector itself. An example would look like the following:
 
 Example:
 
@@ -129,7 +126,7 @@ int main(void)
 { 
     vector(int) x = new_vector(int);
     /* Do stuff */
-    free_vector(int, x);
+    free_vector(x);
     return 0;
 }
 ```
@@ -198,8 +195,8 @@ int main(void)
     printf("curr_size: %zu\n", y->size(y));
     printf("maxi_size: %zu\n", y->max_size(y));
 
-    free_vector(int, x);
-    free_vector(int, y);
+    free_vector(x);
+    free_vector(y);
     return 0;
 }
 ```

@@ -28,8 +28,8 @@ int main(void)
 
     printf("curr_size: %zu\n", y->size(y));
     printf("maxi_size: %zu\n", y->max_size(y));
-
-    free_vector(type, x);
-    free_vector(type, y);
+    
+    free_vector(x);
+    free_vector(y);
     return 0;
 }

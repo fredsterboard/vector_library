@@ -16,7 +16,8 @@
 /* Macro to make initialization more intuitive */
 #define new_vector(type_t) new_vector ## type_t ()
 
-#define free_vector(type_t, vector) free_vector_ ## type_t (vector)
+/* Macro to free a vector */
+#define free_vector(vector) do {free(vector->data); free(vector);} while (0)
 
 /* MACRO THAT DEFINES VECTOR AND CORRESPONDING FUNCTIONS */
 #define initial_vector(type_t)                                               \
@@ -45,7 +46,6 @@ typedef struct _vector_ ## type_t                                            \
                                                                              \
 /* FUNCTION PROTOTYPES */                                                    \
 vector_ ## type_t *new_vector ## type_t ();                                  \
-void free_vector_ ## type_t (vector_ ## type_t *vector);                     \
                                                                              \
 void append_ ## type_t (vector_ ## type_t *self, type_t x);                  \
 void extend_ ## type_t (vector_ ## type_t *self, vector_ ## type_t * input); \
@@ -86,13 +86,6 @@ vector_ ## type_t *new_vector ## type_t ()                                   \
                                                                              \
     /* return pointer to memory type */                                      \
     return result;                                                           \
-}                                                                            \
-                                                                             \
-/* Frees vector when done using it */                                        \
-void free_vector_ ## type_t (vector_ ## type_t *vector)                      \
-{                                                                            \
-    free(vector->data);                                                      \
-    free(vector);                                                            \
 }                                                                            \
                                                                              \
 /* METHODS */                                                                \
